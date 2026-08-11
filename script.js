@@ -59,3 +59,43 @@ function showPage(pageId) {
 
     });
 }
+async function testFirestore() {
+    try {
+        console.log("Connecting to Firestore database: aban");
+
+        const collections = [
+            "Caregivers",
+            "Dose History",
+            "Medicines",
+            "Patients",
+            "Reminders",
+            "SOS Events"
+        ];
+
+        for (const collectionName of collections) {
+            const snapshot = await getDocs(
+                collection(db, collectionName)
+            );
+
+            console.log(
+                collectionName + ": " + snapshot.size + " document(s)"
+            );
+
+            snapshot.forEach((doc) => {
+                console.log(
+                    collectionName,
+                    "→",
+                    doc.id,
+                    doc.data()
+                );
+            });
+        }
+
+        console.log("Firestore connection successful!");
+
+    } catch (error) {
+        console.error("Firestore connection error:", error);
+    }
+}
+
+testFirestore();
