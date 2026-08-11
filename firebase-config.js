@@ -1,21 +1,24 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// Firebase App
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase Firestore
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+// Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBOXAYel4xvnXSv31GGhhy4bzSbPLgblNw",
+  apiKey: "YOUR_API_KEY",
   authDomain: "smart-medicine-system-d8b6c.firebaseapp.com",
   projectId: "smart-medicine-system-d8b6c",
   storageBucket: "smart-medicine-system-d8b6c.firebasestorage.app",
   messagingSenderId: "257438247903",
-  appId: "1:257438247903:web:dae15d7f02339e3e0fb26a",
-  measurementId: "G-0WFQJ9VRR0"
+  appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Initialize Firestore
+const db = getFirestore(app);
+
+// Export Firestore
+export { db };
