@@ -6,12 +6,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase
 
 // Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyBOXAYel4xvnXSv31GGhhy4bzSbPLgblNw",
   authDomain: "smart-medicine-system-d8b6c.firebaseapp.com",
   projectId: "smart-medicine-system-d8b6c",
   storageBucket: "smart-medicine-system-d8b6c.firebasestorage.app",
   messagingSenderId: "257438247903",
-  appId: "YOUR_APP_ID"
+  appId: "1:257438247903:web:dae15d7f02339e3e0fb26a"
 };
 
 // Initialize Firebase
