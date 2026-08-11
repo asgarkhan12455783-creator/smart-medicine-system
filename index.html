@@ -157,22 +157,22 @@
 
                     <div class="medicine-info">
 
-                        <h3>Medicine A</h3>
+                        <h3 id="dashboard-medicine-name">Loading...</h3>
 
-                        <div class="medicine-row">
-                            <span>Stock</span>
-                            <strong>20 tablets</strong>
-                        </div>
+<div class="medicine-row">
+    <span>Stock</span>
+    <strong id="dashboard-medicine-stock">-</strong>
+</div>
 
-                        <div class="medicine-row">
-                            <span>Compartment</span>
-                            <strong>Morning</strong>
-                        </div>
+<div class="medicine-row">
+    <span>Compartment</span>
+    <strong id="dashboard-medicine-compartment">-</strong>
+</div>
 
-                        <div class="medicine-row">
-                            <span>Expiry</span>
-                            <strong>20 Dec 2026</strong>
-                        </div>
+<div class="medicine-row">
+    <span>Expiry</span>
+    <strong id="dashboard-medicine-expiry">-</strong>
+</div>
 
                     </div>
 
@@ -192,18 +192,18 @@
 
                     <div class="reminder-box">
 
-                        <div class="time">
-                            08:00 AM
-                        </div>
+                        <div class="time" id="dashboard-reminder-time">
+    -
+</div>
 
-                        <div>
-                            <h3>Medicine A</h3>
-                            <p>1 tablet</p>
-                        </div>
+<div>
+    <h3 id="dashboard-reminder-name">Loading...</h3>
+    <p id="dashboard-reminder-dose">-</p>
+</div>
 
-                        <span class="status pending">
-                            PENDING
-                        </span>
+<span class="status pending" id="dashboard-reminder-status">
+    PENDING
+</span>
 
                     </div>
 
@@ -219,14 +219,14 @@
                     <div class="dose-box">
 
                         <div>
-                            <h3>Medicine A</h3>
-                            <p>Scheduled: 08:00 AM</p>
-                            <p>Actual: 08:03 AM</p>
-                        </div>
+    <h3 id="dashboard-dose-name">Loading...</h3>
+    <p id="dashboard-dose-scheduled">Scheduled: -</p>
+    <p id="dashboard-dose-actual">Actual: -</p>
+</div>
 
-                        <span class="status taken">
-                            ✓ TAKEN
-                        </span>
+<span class="status taken" id="dashboard-dose-status">
+    TAKEN
+</span>
 
                     </div>
 
@@ -259,16 +259,11 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-
-                            <tr>
-                                <td>P001</td>
-                                <td>Demo Patient</td>
-                                <td>70</td>
-                                <td>C001</td>
-                            </tr>
-
-                        </tbody>
+                      <tbody id="patients-table-body">
+    <tr>
+        <td colspan="4">Loading patients...</td>
+    </tr>
+</tbody>
 
                     </table>
 
@@ -302,17 +297,11 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-
-                            <tr>
-                                <td>M001</td>
-                                <td>Medicine A</td>
-                                <td>20 tablets</td>
-                                <td>20 Dec 2026</td>
-                                <td>Morning</td>
-                            </tr>
-
-                        </tbody>
+                        <tbody id="medicines-table-body">
+    <tr>
+        <td colspan="5">Loading medicines...</td>
+    </tr>
+</tbody>
 
                     </table>
 
@@ -332,22 +321,9 @@
                     <h2>⏰ Reminders</h2>
                 </div>
 
-                <div class="reminder-list">
-
-                    <div class="reminder-item">
-
-                        <div>
-                            <h3>Medicine A</h3>
-                            <p>Patient: P001</p>
-                        </div>
-
-                        <strong>08:00 AM</strong>
-
-                        <span>1 tablet</span>
-
-                    </div>
-
-                </div>
+               <div class="reminder-list" id="reminders-list">
+    <p>Loading reminders...</p>
+</div>
 
             </div>
 
@@ -379,24 +355,11 @@
 
                         </thead>
 
-                        <tbody>
-
-                            <tr>
-
-                                <td>Medicine A</td>
-                                <td>29 July 2026</td>
-                                <td>08:00 AM</td>
-                                <td>08:03 AM</td>
-
-                                <td>
-                                    <span class="status taken">
-                                        TAKEN
-                                    </span>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
+                       <tbody id="history-table-body">
+    <tr>
+        <td colspan="5">Loading dose history...</td>
+    </tr>
+</tbody>
 
                     </table>
 
@@ -416,18 +379,11 @@
                     <h2>⚠️ Alerts</h2>
                 </div>
 
-                <div class="empty-state">
-
-                    <div>✅</div>
-
-                    <h3>No Active Alerts</h3>
-
-                    <p>
-                        There are currently no medicine alerts.
-                    </p>
-
-                </div>
-
+               <div class="empty-state" id="alerts-content">
+    <div>⏳</div>
+    <h3>Loading Alerts...</h3>
+    <p>Please wait.</p>
+</div>
             </div>
 
         </section>
@@ -442,17 +398,11 @@
                     <h2>🚨 SOS Events</h2>
                 </div>
 
-                <div class="empty-state">
-
-                    <div>🛡️</div>
-
-                    <h3>No SOS Events</h3>
-
-                    <p>
-                        No emergency event has been triggered.
-                    </p>
-
-                </div>
+              <div class="empty-state" id="sos-content">
+    <div>⏳</div>
+    <h3>Loading SOS Events...</h3>
+    <p>Please wait.</p>
+</div>
 
             </div>
 
