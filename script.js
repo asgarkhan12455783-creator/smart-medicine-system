@@ -59,6 +59,7 @@ function showPage(pageId) {
 
     });
 }
+window.showPage = showPage;
 async function testFirestore() {
     try {
         console.log("Connecting to Firestore database: aban");
