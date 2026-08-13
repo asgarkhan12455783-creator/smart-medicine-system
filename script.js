@@ -415,7 +415,7 @@ function updateMedicinesPage() {
         return;
     }
 
-
+console.log("MEDICINES DATA:", firebaseData.medicines);
     firebaseData.medicines.forEach(function(medicine) {
 
         const row = document.createElement("tr");
