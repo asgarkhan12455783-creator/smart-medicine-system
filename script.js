@@ -416,21 +416,28 @@ function updateMedicinesPage() {
     }
 
 console.log("MEDICINES DATA:", firebaseData.medicines);
-    firebaseData.medicines.forEach(function(medicine) {
 
-        const row = document.createElement("tr");
+firebaseData.medicines.forEach(function(medicine) {
 
-        row.innerHTML = `
-            <td>${medicine.id}</td>
-            <td>${medicine.name || "-"}</td>
-            <td>${medicine.stock}</td>
-            <td>${medicine.expiry || "-"}</td>
-            <td>${medicine.compartment || "-"}</td>
-        `;
+    console.log("Medicine:", medicine.id, "Stock:", medicine.stock);
 
-        tbody.appendChild(row);
+    const row = document.createElement("tr");
 
-    });
+    const stockValue =
+        medicine.stock !== undefined && medicine.stock !== null
+            ? medicine.stock
+            : "-";
+
+    row.innerHTML = `
+        <td>${medicine.id}</td>
+        <td>${medicine.name || "-"}</td>
+        <td>${stockValue}</td>
+        <td>${medicine.expiry || "-"}</td>
+        <td>${medicine.compartment || "-"}</td>
+    `;
+
+    tbody.appendChild(row);
+});
 }
 
 
