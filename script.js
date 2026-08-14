@@ -423,7 +423,7 @@ console.log("MEDICINES DATA:", firebaseData.medicines);
         row.innerHTML = `
             <td>${medicine.id}</td>
             <td>${medicine.name || "-"}</td>
-            <td>${medicine.stock ?? "-"}</td>
+            <td>${medicine.stock}</td>
             <td>${medicine.expiry || "-"}</td>
             <td>${medicine.compartment || "-"}</td>
         `;
