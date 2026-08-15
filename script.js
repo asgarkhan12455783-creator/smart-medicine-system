@@ -457,11 +457,19 @@ function updatePatientsPage() {
 
     tbody.innerHTML = "";
 
-    if (firebaseData.patients.length === 0) {
+
+    // Get patient data from login
+    const storedData =
+        sessionStorage.getItem("patientData");
+
+
+    if (!storedData) {
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="4">No patients found.</td>
+                <td colspan="4">
+                    No logged-in patient found.
+                </td>
             </tr>
         `;
 
@@ -469,20 +477,55 @@ function updatePatientsPage() {
     }
 
 
-    firebaseData.patients.forEach(function(patient) {
+    try {
 
-        const row = document.createElement("tr");
+        const patientData =
+            JSON.parse(storedData);
+
+
+        const row =
+            document.createElement("tr");
+
 
         row.innerHTML = `
-            <td>${patient.id}</td>
-            <td>${patient.name || "-"}</td>
-            <td>${patient.age ?? "-"}</td>
-            <td>${patient.caregiverID || "-"}</td>
+            <td>
+                ${patientData.patientId || "-"}
+            </td>
+
+            <td>
+                ${patientData.patientName || "-"}
+            </td>
+
+            <td>
+                ${patientData.age || "-"}
+            </td>
+
+            <td>
+                ${patientData.caregiverName || "-"}
+            </td>
         `;
+
 
         tbody.appendChild(row);
 
-    });
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error loading patient data:",
+            error
+        );
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    Unable to load patient data.
+                </td>
+            </tr>
+        `;
+
+    }
 }
 
 
