@@ -1,427 +1,298 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Smart Medicine System</title>
+    <title>Login - Smart Medicine System</title>
 
-<style>
 
-    * {
-        box-sizing: border-box;
-    }
+    <style>
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-
-        font-family: "Segoe UI", Arial, sans-serif;
-
-        background:
-            radial-gradient(circle at top left, #dff4ff 0%, transparent 35%),
-            radial-gradient(circle at bottom right, #dbeafe 0%, transparent 35%),
-            linear-gradient(135deg, #f8fbff, #eaf5ff);
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        padding: 30px 15px;
-    }
-
-    .page-container {
-        width: 100%;
-        max-width: 1050px;
-
-        display: grid;
-        grid-template-columns: 0.9fr 1.4fr;
-
-        background: rgba(255,255,255,0.95);
-
-        border-radius: 25px;
-
-        overflow: hidden;
-
-        box-shadow:
-            0 25px 70px rgba(15, 71, 110, 0.15);
-    }
-
-
-    /* LEFT SIDE */
-
-    .welcome-section {
-        background:
-            linear-gradient(145deg, #0d5c91, #1687b8);
-
-        color: white;
-
-        padding: 55px 40px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        position: relative;
-        overflow: hidden;
-    }
-
-    .welcome-section::before {
-        content: "";
-
-        position: absolute;
-
-        width: 280px;
-        height: 280px;
-
-        border-radius: 50%;
-
-        background: rgba(255,255,255,0.08);
-
-        top: -100px;
-        right: -100px;
-    }
-
-    .welcome-section::after {
-        content: "";
-
-        position: absolute;
-
-        width: 220px;
-        height: 220px;
-
-        border-radius: 50%;
-
-        background: rgba(255,255,255,0.06);
-
-        bottom: -90px;
-        left: -90px;
-    }
-
-    .logo {
-        width: 90px;
-        height: 90px;
-
-        object-fit: contain;
-
-        margin-bottom: 25px;
-
-        background: white;
-
-        padding: 10px;
-
-        border-radius: 22px;
-    }
-
-    .welcome-section h1 {
-        margin: 0;
-
-        font-size: 38px;
-
-        line-height: 1.15;
-
-        position: relative;
-        z-index: 2;
-    }
-
-    .welcome-section h1 span {
-        color: #b9edff;
-    }
-
-    .welcome-section p {
-        font-size: 16px;
-
-        line-height: 1.7;
-
-        color: #e5f8ff;
-
-        margin-top: 18px;
-
-        max-width: 420px;
-
-        position: relative;
-        z-index: 2;
-    }
-
-    .feature {
-        display: flex;
-
-        align-items: center;
-
-        gap: 12px;
-
-        margin-top: 25px;
-
-        position: relative;
-        z-index: 2;
-    }
-
-    .feature-icon {
-        width: 38px;
-        height: 38px;
-
-        border-radius: 12px;
-
-        background: rgba(255,255,255,0.15);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 19px;
-    }
-
-    .feature span {
-        font-size: 14px;
-
-        color: #e8f9ff;
-    }
-
-
-    /* RIGHT SIDE */
-
-    .form-section {
-        padding: 45px;
-
-        background: white;
-    }
-
-    .form-header {
-        margin-bottom: 28px;
-    }
-
-    .form-header h2 {
-        margin: 0;
-
-        color: #123f6d;
-
-        font-size: 28px;
-    }
-
-    .form-header p {
-        margin: 8px 0 0;
-
-        color: #64748b;
-
-        font-size: 14px;
-    }
-
-
-    .form-grid {
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-
-        gap: 18px;
-    }
-
-    .form-group {
-        display: flex;
-
-        flex-direction: column;
-    }
-
-    .full-width {
-        grid-column: 1 / -1;
-    }
-
-    label {
-        font-size: 13px;
-
-        font-weight: 600;
-
-        color: #334155;
-
-        margin-bottom: 7px;
-    }
-
-    input,
-    select {
-        width: 100%;
-
-        height: 45px;
-
-        padding: 0 13px;
-
-        border: 1px solid #d7e1ea;
-
-        border-radius: 10px;
-
-        background: #f8fafc;
-
-        color: #1e293b;
-
-        font-size: 14px;
-
-        transition: 0.2s;
-    }
-
-    input:focus,
-    select:focus {
-        outline: none;
-
-        border-color: #1592c2;
-
-        background: white;
-
-        box-shadow:
-            0 0 0 3px rgba(21,146,194,0.10);
-    }
-
-    .login-button {
-        width: 100%;
-
-        height: 48px;
-
-        margin-top: 25px;
-
-        border: none;
-
-        border-radius: 11px;
-
-        background:
-            linear-gradient(135deg, #0d6fa5, #1598c5);
-
-        color: white;
-
-        font-size: 15px;
-
-        font-weight: 700;
-
-        cursor: pointer;
-
-        box-shadow:
-            0 8px 20px rgba(13,111,165,0.22);
-
-        transition: 0.2s;
-    }
-
-    .login-button:hover {
-        transform: translateY(-1px);
-
-        box-shadow:
-            0 10px 25px rgba(13,111,165,0.30);
-    }
-
-    .login-button:disabled {
-        opacity: 0.7;
-
-        cursor: not-allowed;
-
-        transform: none;
-    }
-
-    .message {
-        margin-top: 15px;
-
-        text-align: center;
-
-        font-size: 14px;
-
-        font-weight: 500;
-    }
-
-    #errorMessage {
-        color: #dc2626;
-    }
-
-    #successMessage {
-        color: #16a34a;
-    }
-
-    .security-note {
-        margin-top: 18px;
-
-        text-align: center;
-
-        font-size: 12px;
-
-        color: #94a3b8;
-    }
-
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-        .page-container {
-            grid-template-columns: 1fr;
+        * {
+            box-sizing: border-box;
         }
 
-        .welcome-section {
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e0f2fe,
+                    #f1f5f9
+                );
+
+        }
+
+
+        .login-container {
+
+            width: 430px;
+
+            max-width: 95%;
+
+            background: white;
+
             padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .logo {
+
+            display: block;
+
+            width: 70px;
+
+            height: 70px;
+
+            object-fit: contain;
+
+            margin: 0 auto 12px;
+
+        }
+
+
+        h1 {
+
+            margin: 0;
 
             text-align: center;
 
-            align-items: center;
+            color: #123f6d;
+
+            font-size: 28px;
+
         }
 
-        .welcome-section h1 {
-            font-size: 30px;
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #64748b;
+
+            margin-top: 8px;
+
+            margin-bottom: 25px;
+
         }
 
-        .welcome-section p {
-            max-width: 600px;
+
+        .section-title {
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            color: #123f6d;
+
+            margin-top: 20px;
+
+            margin-bottom: 12px;
+
+            padding-bottom: 6px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
         }
 
-        .feature {
-            text-align: left;
+
+        label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-weight: 600;
+
+            color: #334155;
+
+        }
+
+
+        input {
 
             width: 100%;
 
-            max-width: 350px;
+            padding: 12px;
+
+            margin-bottom: 14px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
         }
 
-        .form-section {
-            padding: 30px 25px;
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #1d5d96;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(29, 93, 150, 0.10);
+
         }
-    }
 
 
-    @media (max-width: 520px) {
+        .row {
 
-        body {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #1d5d96;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 8px;
+
+        }
+
+
+        button:hover {
+
+            background: #164a78;
+
+        }
+
+
+        button:disabled {
+
+            background: #94a3b8;
+
+            cursor: not-allowed;
+
+        }
+
+
+        #errorMessage {
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            color: #dc2626;
+
+            font-size: 14px;
+
+        }
+
+
+        #successMessage {
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            color: #16a34a;
+
+            font-size: 14px;
+
+        }
+
+
+        .info {
+
+            margin-top: 18px;
+
             padding: 10px;
+
+            background: #f8fafc;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            color: #64748b;
+
+            text-align: center;
+
         }
 
-        .form-grid {
-            grid-template-columns: 1fr;
+
+        @media (max-width: 500px) {
+
+            .login-container {
+
+                padding: 25px;
+
+            }
+
+            .row {
+
+                grid-template-columns: 1fr;
+
+                gap: 0;
+
+            }
+
         }
 
-        .full-width {
-            grid-column: auto;
-        }
-
-        .welcome-section {
-            padding: 30px 22px;
-        }
-
-        .form-section {
-            padding: 25px 18px;
-        }
-
-        .logo {
-            width: 70px;
-            height: 70px;
-        }
-    }
-
-</style>
-```
+    </style>
 
 </head>
 
+
 <body>
 
-<div class="page-container">
 
-```
-<!-- LEFT WELCOME PANEL -->
+<div class="login-container">
 
-<section class="welcome-section">
+
+    <!-- LOGO -->
 
     <img
         src="logo.png"
@@ -429,382 +300,300 @@
         class="logo"
     >
 
+
     <h1>
-        Smart <span>Medicine</span>
+        Smart Medicine
     </h1>
 
-    <p>
-        Intelligent medicine management designed to help
-        patients and caregivers manage medications,
-        reminders and health information with ease.
-    </p>
 
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            💊
-        </div>
-
-        <span>
-            Smart medication management
-        </span>
-
+    <div class="subtitle">
+        Caregiver Login
     </div>
 
 
-    <div class="feature">
 
-        <div class="feature-icon">
-            ⏰
-        </div>
-
-        <span>
-            Medicine reminders and dose tracking
-        </span>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            🛡️
-        </div>
-
-        <span>
-            Secure patient information
-        </span>
-
-    </div>
-
-</section>
-
-
-
-<!-- FORM -->
-
-<section class="form-section">
-
-
-    <div class="form-header">
-
-        <h2>
-            Patient Registration
-        </h2>
-
-        <p>
-            Enter patient and caregiver information to continue.
-        </p>
-
-    </div>
-
+    <!-- LOGIN FORM -->
 
     <form id="loginForm">
 
 
-        <div class="form-grid">
+        <!-- ACCOUNT -->
 
-
-            <!-- PATIENT NAME -->
-
-            <div class="form-group full-width">
-
-                <label for="patientName">
-                    Patient Name
-                </label>
-
-                <input
-                    type="text"
-                    id="patientName"
-                    placeholder="Enter patient name"
-                    required
-                >
-
-            </div>
-
-
-            <!-- AGE -->
-
-            <div class="form-group">
-
-                <label for="age">
-                    Age
-                </label>
-
-                <input
-                    type="number"
-                    id="age"
-                    placeholder="Enter age"
-                    min="1"
-                    max="120"
-                    required
-                >
-
-            </div>
-
-
-            <!-- GENDER -->
-
-            <div class="form-group">
-
-                <label for="gender">
-                    Gender
-                </label>
-
-                <select id="gender" required>
-
-                    <option value="">
-                        Select gender
-                    </option>
-
-                    <option value="Male">
-                        Male
-                    </option>
-
-                    <option value="Female">
-                        Female
-                    </option>
-
-                    <option value="Other">
-                        Other
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- BLOOD GROUP -->
-
-            <div class="form-group">
-
-                <label for="bloodGroup">
-                    Blood Group
-                </label>
-
-                <select id="bloodGroup" required>
-
-                    <option value="">
-                        Select blood group
-                    </option>
-
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-
-                </select>
-
-            </div>
-
-
-            <!-- HEIGHT -->
-
-            <div class="form-group">
-
-                <label for="height">
-                    Height (cm)
-                </label>
-
-                <input
-                    type="number"
-                    id="height"
-                    placeholder="e.g. 170"
-                    min="1"
-                >
-
-            </div>
-
-
-            <!-- WEIGHT -->
-
-            <div class="form-group">
-
-                <label for="weight">
-                    Weight (kg)
-                </label>
-
-                <input
-                    type="number"
-                    id="weight"
-                    placeholder="e.g. 65"
-                    min="1"
-                >
-
-            </div>
-
-
-            <!-- DISEASE -->
-
-            <div class="form-group">
-
-                <label for="disease">
-                    Disease / Condition
-                </label>
-
-                <input
-                    type="text"
-                    id="disease"
-                    placeholder="Enter disease or condition"
-                >
-
-            </div>
-
-
-            <!-- CAREGIVER -->
-
-            <div class="form-group">
-
-                <label for="caregiverName">
-                    Caregiver Name
-                </label>
-
-                <input
-                    type="text"
-                    id="caregiverName"
-                    placeholder="Enter caregiver name"
-                    required
-                >
-
-            </div>
-
-
-            <!-- CAREGIVER MOBILE -->
-
-            <div class="form-group">
-
-                <label for="caregiverMobile">
-                    Caregiver Mobile
-                </label>
-
-                <input
-                    type="tel"
-                    id="caregiverMobile"
-                    placeholder="Enter mobile number"
-                    pattern="[0-9]{10}"
-                    maxlength="10"
-                    required
-                >
-
-            </div>
-
-
-            <!-- EMAIL -->
-
-            <div class="form-group">
-
-                <label for="email">
-                    Email Address
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter email"
-                    required
-                >
-
-            </div>
-
-
-            <!-- PASSWORD -->
-
-            <div class="form-group">
-
-                <label for="password">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    minlength="6"
-                    required
-                >
-
-            </div>
-
-
+        <div class="section-title">
+            🔐 Account Information
         </div>
 
+
+        <label for="email">
+            Email Address
+        </label>
+
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+        >
+
+
+        <label for="password">
+            Password
+        </label>
+
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+        >
+
+
+
+        <!-- CAREGIVER -->
+
+        <div class="section-title">
+            👨‍⚕️ Caregiver Information
+        </div>
+
+
+        <label for="caregiverName">
+            Caregiver Name
+        </label>
+
+
+        <input
+            type="text"
+            id="caregiverName"
+            placeholder="Enter caregiver name"
+            required
+        >
+
+
+        <label for="caregiverID">
+            Caregiver ID
+        </label>
+
+
+        <input
+            type="text"
+            id="caregiverID"
+            placeholder="Example: C001"
+            required
+        >
+
+
+
+        <!-- PATIENT -->
+
+        <div class="section-title">
+            👤 Patient Information
+        </div>
+
+
+        <label for="patientId">
+            Patient ID
+        </label>
+
+
+        <input
+            type="text"
+            id="patientId"
+            placeholder="Example: P001"
+            required
+        >
+
+
+        <label for="patientName">
+            Patient Name
+        </label>
+
+
+        <input
+            type="text"
+            id="patientName"
+            placeholder="Enter patient name"
+            required
+        >
+
+
+        <label for="patientAge">
+            Patient Age
+        </label>
+
+
+        <input
+            type="number"
+            id="patientAge"
+            placeholder="Enter patient age"
+            min="0"
+            max="150"
+            required
+        >
+
+
+
+        <!-- LOGIN BUTTON -->
 
         <button
             type="submit"
             id="loginButton"
-            class="login-button"
         >
-            Continue to Dashboard →
+            Login
         </button>
 
 
     </form>
 
 
-    <div
-        id="errorMessage"
-        class="message"
-    ></div>
+
+    <div id="errorMessage"></div>
+
+    <div id="successMessage"></div>
 
 
-    <div
-        id="successMessage"
-        class="message"
-    ></div>
+    <div class="info">
 
+        Your caregiver and patient information
+        will be connected to this login account.
 
-    <div class="security-note">
-        🔒 Your information is securely managed.
     </div>
 
 
-</section>
-```
-
 </div>
+
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
 
 <script type="module">
 
-    import { auth } from "./firebase-config.js";
+
+    import {
+        auth,
+        db
+    } from "./firebase-config.js";
+
 
     import {
         signInWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+    } from
+    "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+
+    import {
+        doc,
+        setDoc
+    } from
+    "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+
+
+    // ========================================================
+    // ELEMENTS
+    // ========================================================
 
 
     const loginForm =
-        document.getElementById("loginForm");
+        document.getElementById(
+            "loginForm"
+        );
+
 
     const loginButton =
-        document.getElementById("loginButton");
+        document.getElementById(
+            "loginButton"
+        );
+
 
     const errorMessage =
-        document.getElementById("errorMessage");
+        document.getElementById(
+            "errorMessage"
+        );
+
 
     const successMessage =
-        document.getElementById("successMessage");
+        document.getElementById(
+            "successMessage"
+        );
+
+
+
+    // ========================================================
+    // LOGIN
+    // ========================================================
 
 
     loginForm.addEventListener(
         "submit",
         async function(event) {
 
+
             event.preventDefault();
 
 
+
+            // ------------------------------------------------
+            // GET FORM DATA
+            // ------------------------------------------------
+
+
             const email =
-                document.getElementById("email")
-                .value
-                .trim();
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
 
             const password =
-                document.getElementById("password")
-                .value;
+                document
+                    .getElementById("password")
+                    .value;
+
+
+            const caregiverName =
+                document
+                    .getElementById("caregiverName")
+                    .value
+                    .trim();
+
+
+            const caregiverID =
+                document
+                    .getElementById("caregiverID")
+                    .value
+                    .trim();
+
+
+            const patientId =
+                document
+                    .getElementById("patientId")
+                    .value
+                    .trim();
+
+
+            const patientName =
+                document
+                    .getElementById("patientName")
+                    .value
+                    .trim();
+
+
+            const patientAge =
+                Number(
+                    document
+                        .getElementById("patientAge")
+                        .value
+                );
+
+
+
+            // ------------------------------------------------
+            // CLEAR MESSAGES
+            // ------------------------------------------------
 
 
             errorMessage.textContent = "";
@@ -812,84 +601,189 @@
             successMessage.textContent = "";
 
 
+
+            // ------------------------------------------------
+            // DISABLE BUTTON
+            // ------------------------------------------------
+
+
             loginButton.disabled = true;
 
             loginButton.textContent =
-                "Signing in...";
+                "Logging in...";
+
 
 
             try {
 
 
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
+                // ==================================================
+                // STEP 1
+                // LOGIN TO FIREBASE AUTHENTICATION
+                // ==================================================
+
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+
+                console.log(
+                    "LOGIN SUCCESSFUL"
                 );
 
+
+                console.log(
+                    "Firebase UID:",
+                    user.uid
+                );
+
+
+
+                // ==================================================
+                // STEP 2
+                // SAVE CAREGIVER DATA
+                // ==================================================
+
+
+                await setDoc(
+
+                    doc(
+                        db,
+                        "Caregivers",
+                        user.uid
+                    ),
+
+                    {
+
+                        name:
+                            caregiverName,
+
+                        caregiverID:
+                            caregiverID,
+
+                        patientId:
+                            patientId,
+
+                        email:
+                            user.email,
+
+                        uid:
+                            user.uid
+
+                    },
+
+                    {
+                        merge: true
+                    }
+
+                );
+
+
+
+                console.log(
+                    "Caregiver data saved."
+                );
+
+
+
+                // ==================================================
+                // STEP 3
+                // SAVE PATIENT DATA
+                // ==================================================
 
                 /*
-                 * Store the patient information for
-                 * the current browser session.
-                 *
-                 * This allows the dashboard and
-                 * inner pages to use the information
-                 * entered here.
-                 */
+                    We use patientId as the
+                    Firestore document ID.
 
-                const patientData = {
+                    Example:
 
-                    patientName:
-                        document.getElementById("patientName").value.trim(),
-
-                    age:
-                        document.getElementById("age").value.trim(),
-
-                    gender:
-                        document.getElementById("gender").value,
-
-                    bloodGroup:
-                        document.getElementById("bloodGroup").value,
-
-                    height:
-                        document.getElementById("height").value.trim(),
-
-                    weight:
-                        document.getElementById("weight").value.trim(),
-
-                    disease:
-                        document.getElementById("disease").value.trim(),
-
-                    caregiverName:
-                        document.getElementById("caregiverName").value.trim(),
-
-                    caregiverMobile:
-                        document.getElementById("caregiverMobile").value.trim(),
-
-                    email: email
-
-                };
+                    Patients
+                       └── P001
+                */
 
 
-                sessionStorage.setItem(
-                    "patientData",
-                    JSON.stringify(patientData)
+                await setDoc(
+
+                    doc(
+                        db,
+                        "Patients",
+                        patientId
+                    ),
+
+                    {
+
+                        patientId:
+                            patientId,
+
+                        caregiverID:
+                            caregiverID,
+
+                        caregiverUID:
+                            user.uid,
+
+                        name:
+                            patientName,
+
+                        age:
+                            patientAge
+
+                    },
+
+                    {
+                        merge: true
+                    }
+
                 );
+
+
+
+                console.log(
+                    "Patient data saved."
+                );
+
+
+
+                // ==================================================
+                // SUCCESS
+                // ==================================================
 
 
                 successMessage.textContent =
-                    "Login successful! Redirecting...";
+                    "Login successful!";
 
 
-                setTimeout(function() {
+                loginButton.textContent =
+                    "Success ✓";
 
-                    window.location.href =
-                        "index.html";
 
-                }, 700);
+
+                // ==================================================
+                // GO TO DASHBOARD
+                // ==================================================
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "index.html";
+
+                    },
+                    700
+                );
 
 
             }
+
 
             catch (error) {
 
@@ -898,6 +792,12 @@
                     "Login error:",
                     error
                 );
+
+
+
+                // ----------------------------------------------
+                // FIREBASE ERRORS
+                // ----------------------------------------------
 
 
                 if (
@@ -910,6 +810,7 @@
 
                 }
 
+
                 else if (
                     error.code ===
                     "auth/invalid-email"
@@ -920,35 +821,63 @@
 
                 }
 
+
                 else if (
                     error.code ===
-                    "auth/too-many-requests"
+                    "auth/user-not-found"
                 ) {
 
                     errorMessage.textContent =
-                        "Too many attempts. Please try again later.";
+                        "User account was not found.";
 
                 }
+
+
+                else if (
+                    error.code ===
+                    "auth/wrong-password"
+                ) {
+
+                    errorMessage.textContent =
+                        "Incorrect password.";
+
+                }
+
+
+                else if (
+                    error.code ===
+                    "permission-denied"
+                ) {
+
+                    errorMessage.textContent =
+                        "Firestore permission denied. Check your Firestore rules.";
+
+                }
+
 
                 else {
 
                     errorMessage.textContent =
-                        "Login failed. Please try again.";
+                        "Login failed: " +
+                        error.message;
 
                 }
+
 
 
                 loginButton.disabled = false;
 
                 loginButton.textContent =
-                    "Continue to Dashboard →";
+                    "Login";
 
             }
 
         }
+
     );
 
 </script>
+
 
 </body>
 
