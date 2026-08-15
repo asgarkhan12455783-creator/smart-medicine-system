@@ -1,9 +1,13 @@
-import { db } from "./firebase-config.js";
+import { db, auth } from "./firebase-config.js";
 
 import {
     collection,
     getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
 // ======================================================
@@ -178,6 +182,125 @@ async function loadFirebaseData() {
 // DASHBOARD
 // ======================================================
 
+// ======================================================
+// PATIENT DATA FROM LOGIN
+// ======================================================
+
+function loadLoggedInPatientData() {
+
+    const storedData =
+        sessionStorage.getItem("patientData");
+
+    if (!storedData) {
+        console.log("No patient data found from login.");
+        return;
+    }
+
+    try {
+
+        const patientData =
+            JSON.parse(storedData);
+
+        console.log(
+            "Patient data from login:",
+            patientData
+        );
+
+
+        // Patient Name
+        const patientName =
+            document.getElementById(
+                "dashboard-patient-name"
+            );
+
+        if (patientName) {
+            patientName.textContent =
+                patientData.patientName || "-";
+        }
+
+
+        // Age
+        const patientAge =
+            document.getElementById(
+                "dashboard-patient-age"
+            );
+
+        if (patientAge) {
+            patientAge.textContent =
+                patientData.age || "-";
+        }
+
+
+        // Gender
+        const patientGender =
+            document.getElementById(
+                "dashboard-patient-gender"
+            );
+
+        if (patientGender) {
+            patientGender.textContent =
+                patientData.gender || "-";
+        }
+
+
+        // Blood Group
+        const patientBlood =
+            document.getElementById(
+                "dashboard-patient-blood"
+            );
+
+        if (patientBlood) {
+            patientBlood.textContent =
+                patientData.bloodGroup || "-";
+        }
+
+
+        // Disease
+        const patientDisease =
+            document.getElementById(
+                "dashboard-patient-disease"
+            );
+
+        if (patientDisease) {
+            patientDisease.textContent =
+                patientData.disease || "-";
+        }
+
+
+        // Caregiver Name
+        const caregiverName =
+            document.getElementById(
+                "dashboard-caregiver-name"
+            );
+
+        if (caregiverName) {
+            caregiverName.textContent =
+                patientData.caregiverName || "-";
+        }
+
+
+        // Caregiver Mobile
+        const caregiverMobile =
+            document.getElementById(
+                "dashboard-caregiver-mobile"
+            );
+
+        if (caregiverMobile) {
+            caregiverMobile.textContent =
+                patientData.caregiverMobile || "-";
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unable to read patient data:",
+            error
+        );
+
+    }
+}
 function updateDashboard() {
 
     // ---------- STATISTICS ----------
@@ -216,35 +339,7 @@ function updateDashboard() {
     }
 
 
-    // ---------- PATIENT ----------
-
-    const patient = firebaseData.patients[0];
-
-    if (patient) {
-
-        document.getElementById(
-            "dashboard-patient-name"
-        ).textContent =
-            patient.name || "Unknown Patient";
-
-
-        document.getElementById(
-            "dashboard-patient-id"
-        ).textContent =
-            patient.id;
-
-
-        document.getElementById(
-            "dashboard-patient-age"
-        ).textContent =
-            patient.age ?? "-";
-
-
-        document.getElementById(
-            "dashboard-caregiver-id"
-        ).textContent =
-            patient.caregiverID || "-";
-    }
+  
 
 
     // ---------- MEDICINE ----------
@@ -689,4 +784,24 @@ function updateSOSPage() {
 // START APPLICATION
 // ======================================================
 
+loadLoggedInPatientData();
+// ======================================================
+// AUTHENTICATION CHECK
+// ======================================================
+
+onAuthStateChanged(auth, function(user) {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    console.log(
+        "Logged in user:",
+        user.email
+    );
+
+});
 loadFirebaseData();
