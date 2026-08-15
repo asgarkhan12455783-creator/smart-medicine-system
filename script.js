@@ -1,11 +1,6 @@
 // =========================================================
 // SMART MEDICINE SYSTEM
-// NEW REALTIME FIREBASE SCRIPT
-// =========================================================
-
-
-// =========================================================
-// FIREBASE
+// FIREBASE AUTH + REALTIME FIRESTORE
 // =========================================================
 
 import { auth, db } from "./firebase-config.js";
@@ -22,58 +17,43 @@ import {
 
 
 // =========================================================
-// APPLICATION DATA
+// GLOBAL DATA
 // =========================================================
 
 let firebaseData = {
-
-    caregivers: [],
-
     patients: [],
-
     medicines: [],
-
     reminders: [],
-
     doseHistory: [],
-
-    sosEvents: []
-
+    sosEvents: [],
+    caregivers: []
 };
 
 
 // =========================================================
-// LOGIN PROTECTION
+// AUTHENTICATION
 // =========================================================
 
-onAuthStateChanged(auth, function(user) {
+onAuthStateChanged(auth, (user) => {
 
     if (!user) {
-
-        console.log("No user logged in.");
 
         window.location.href = "login.html";
 
         return;
-
     }
 
+    console.log("Logged in:", user.email);
 
-    console.log("Logged in user:", user.email);
-
-
-    // Update user information
     updateUserInformation(user);
 
-
-    // Start realtime Firebase listeners
     startRealtimeListeners();
 
 });
 
 
 // =========================================================
-// USER INFORMATION
+// SHOW LOGGED-IN USER
 // =========================================================
 
 function updateUserInformation(user) {
@@ -103,96 +83,51 @@ function updateUserInformation(user) {
 
 
 // =========================================================
-// REALTIME FIREBASE LISTENERS
+// REALTIME FIRESTORE
 // =========================================================
 
 function startRealtimeListeners() {
 
-    console.log(
-        "Starting realtime Firebase listeners..."
-    );
+    console.log("Starting realtime listeners...");
 
 
-    // -----------------------------------------------------
-    // CAREGIVERS
-    // -----------------------------------------------------
-
-    onSnapshot(
-        collection(db, "Caregivers"),
-
-        function(snapshot) {
-
-            firebaseData.caregivers =
-                snapshot.docs.map(function(doc) {
-
-                    return {
-
-                        id: doc.id,
-
-                        ...doc.data()
-
-                    };
-
-                });
-
-
-            console.log(
-                "Caregivers updated:",
-                firebaseData.caregivers
-            );
-
-        },
-
-        function(error) {
-
-            console.error(
-                "Caregivers error:",
-                error
-            );
-
-        }
-    );
-
-
-    // -----------------------------------------------------
+    // =====================================================
     // PATIENTS
-    // -----------------------------------------------------
+    // =====================================================
 
     onSnapshot(
         collection(db, "Patients"),
 
-        function(snapshot) {
+        (snapshot) => {
 
             firebaseData.patients =
-                snapshot.docs.map(function(doc) {
+                snapshot.docs.map((doc) => {
 
                     return {
-
-                        id: doc.id,
-
+                        firestoreId: doc.id,
                         ...doc.data()
-
                     };
 
                 });
 
 
             console.log(
-                "Patients updated:",
+                "CURRENT PATIENT DATA:",
                 firebaseData.patients
             );
 
 
+            // Update BOTH dashboard and patients page
             updateDashboard();
 
             updatePatientsPage();
 
         },
 
-        function(error) {
+        (error) => {
 
             console.error(
-                "Patients error:",
+                "Patients Firestore error:",
                 error
             );
 
@@ -200,31 +135,28 @@ function startRealtimeListeners() {
     );
 
 
-    // -----------------------------------------------------
+    // =====================================================
     // MEDICINES
-    // -----------------------------------------------------
+    // =====================================================
 
     onSnapshot(
         collection(db, "Medicines"),
 
-        function(snapshot) {
+        (snapshot) => {
 
             firebaseData.medicines =
-                snapshot.docs.map(function(doc) {
+                snapshot.docs.map((doc) => {
 
                     return {
-
-                        id: doc.id,
-
+                        firestoreId: doc.id,
                         ...doc.data()
-
                     };
 
                 });
 
 
             console.log(
-                "Medicines updated:",
+                "CURRENT MEDICINE DATA:",
                 firebaseData.medicines
             );
 
@@ -235,10 +167,10 @@ function startRealtimeListeners() {
 
         },
 
-        function(error) {
+        (error) => {
 
             console.error(
-                "Medicines error:",
+                "Medicines Firestore error:",
                 error
             );
 
@@ -246,31 +178,28 @@ function startRealtimeListeners() {
     );
 
 
-    // -----------------------------------------------------
+    // =====================================================
     // REMINDERS
-    // -----------------------------------------------------
+    // =====================================================
 
     onSnapshot(
         collection(db, "Reminders"),
 
-        function(snapshot) {
+        (snapshot) => {
 
             firebaseData.reminders =
-                snapshot.docs.map(function(doc) {
+                snapshot.docs.map((doc) => {
 
                     return {
-
-                        id: doc.id,
-
+                        firestoreId: doc.id,
                         ...doc.data()
-
                     };
 
                 });
 
 
             console.log(
-                "Reminders updated:",
+                "CURRENT REMINDER DATA:",
                 firebaseData.reminders
             );
 
@@ -281,10 +210,10 @@ function startRealtimeListeners() {
 
         },
 
-        function(error) {
+        (error) => {
 
             console.error(
-                "Reminders error:",
+                "Reminders Firestore error:",
                 error
             );
 
@@ -292,31 +221,28 @@ function startRealtimeListeners() {
     );
 
 
-    // -----------------------------------------------------
+    // =====================================================
     // DOSE HISTORY
-    // -----------------------------------------------------
+    // =====================================================
 
     onSnapshot(
         collection(db, "Dose History"),
 
-        function(snapshot) {
+        (snapshot) => {
 
             firebaseData.doseHistory =
-                snapshot.docs.map(function(doc) {
+                snapshot.docs.map((doc) => {
 
                     return {
-
-                        id: doc.id,
-
+                        firestoreId: doc.id,
                         ...doc.data()
-
                     };
 
                 });
 
 
             console.log(
-                "Dose History updated:",
+                "CURRENT DOSE HISTORY:",
                 firebaseData.doseHistory
             );
 
@@ -327,10 +253,10 @@ function startRealtimeListeners() {
 
         },
 
-        function(error) {
+        (error) => {
 
             console.error(
-                "Dose History error:",
+                "Dose History Firestore error:",
                 error
             );
 
@@ -338,31 +264,28 @@ function startRealtimeListeners() {
     );
 
 
-    // -----------------------------------------------------
+    // =====================================================
     // SOS EVENTS
-    // -----------------------------------------------------
+    // =====================================================
 
     onSnapshot(
         collection(db, "SOS Events"),
 
-        function(snapshot) {
+        (snapshot) => {
 
             firebaseData.sosEvents =
-                snapshot.docs.map(function(doc) {
+                snapshot.docs.map((doc) => {
 
                     return {
-
-                        id: doc.id,
-
+                        firestoreId: doc.id,
                         ...doc.data()
-
                     };
 
                 });
 
 
             console.log(
-                "SOS Events updated:",
+                "CURRENT SOS DATA:",
                 firebaseData.sosEvents
             );
 
@@ -375,12 +298,49 @@ function startRealtimeListeners() {
 
         },
 
-        function(error) {
+        (error) => {
 
             console.error(
-                "SOS Events error:",
+                "SOS Firestore error:",
                 error
+            );
 
+        }
+    );
+
+
+    // =====================================================
+    // CAREGIVERS
+    // =====================================================
+
+    onSnapshot(
+        collection(db, "Caregivers"),
+
+        (snapshot) => {
+
+            firebaseData.caregivers =
+                snapshot.docs.map((doc) => {
+
+                    return {
+                        firestoreId: doc.id,
+                        ...doc.data()
+                    };
+
+                });
+
+
+            console.log(
+                "CURRENT CAREGIVER DATA:",
+                firebaseData.caregivers
+            );
+
+        },
+
+        (error) => {
+
+            console.error(
+                "Caregivers Firestore error:",
+                error
             );
 
         }
@@ -395,26 +355,24 @@ function startRealtimeListeners() {
 
 function showPage(pageId) {
 
-    const pages =
-        document.querySelectorAll(".page");
+    document
+        .querySelectorAll(".page")
+        .forEach((page) => {
+
+            page.classList.remove(
+                "active-page"
+            );
+
+        });
 
 
-    pages.forEach(function(page) {
-
-        page.classList.remove(
-            "active-page"
-        );
-
-    });
-
-
-    const selectedPage =
+    const page =
         document.getElementById(pageId);
 
 
-    if (selectedPage) {
+    if (page) {
 
-        selectedPage.classList.add(
+        page.classList.add(
             "active-page"
         );
 
@@ -440,47 +398,47 @@ function showPage(pageId) {
     };
 
 
-    const pageTitle =
-        document.getElementById("page-title");
+    const title =
+        document.getElementById(
+            "page-title"
+        );
 
 
-    if (pageTitle) {
+    if (title) {
 
-        pageTitle.textContent =
+        title.textContent =
             titles[pageId] || "Dashboard";
 
     }
 
 
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
+    document
+        .querySelectorAll(".nav-item")
+        .forEach((item) => {
+
+            item.classList.remove("active");
+
+        });
 
 
-    navItems.forEach(function(item) {
+    document
+        .querySelectorAll(".nav-item")
+        .forEach((item) => {
 
-        item.classList.remove("active");
-
-    });
-
-
-    navItems.forEach(function(item) {
-
-        const onclickValue =
-            item.getAttribute("onclick");
+            const value =
+                item.getAttribute("onclick");
 
 
-        if (
-            onclickValue ===
-            "showPage('" + pageId + "')"
-        ) {
+            if (
+                value ===
+                `showPage('${pageId}')`
+            ) {
 
-            item.classList.add("active");
+                item.classList.add("active");
 
-        }
+            }
 
-    });
+        });
 
 }
 
@@ -494,9 +452,8 @@ window.showPage = showPage;
 
 function updateDashboard() {
 
-
     // -----------------------------------------------------
-    // STATISTICS
+    // COUNTS
     // -----------------------------------------------------
 
     const patientsCount =
@@ -504,18 +461,15 @@ function updateDashboard() {
             "patients-count"
         );
 
-
     const medicinesCount =
         document.getElementById(
             "medicines-count"
         );
 
-
     const remindersCount =
         document.getElementById(
             "reminders-count"
         );
-
 
     const alertsCount =
         document.getElementById(
@@ -556,74 +510,79 @@ function updateDashboard() {
 
 
     // -----------------------------------------------------
-    // PATIENT
+    // CURRENT PATIENT
     // -----------------------------------------------------
 
     const patient =
         firebaseData.patients[0];
 
 
-    if (patient) {
+    if (!patient) {
+
+        return;
+
+    }
 
 
-        const patientName =
-            document.getElementById(
-                "dashboard-patient-name"
-            );
+    const patientName =
+        document.getElementById(
+            "dashboard-patient-name"
+        );
+
+    const patientId =
+        document.getElementById(
+            "dashboard-patient-id"
+        );
+
+    const patientAge =
+        document.getElementById(
+            "dashboard-patient-age"
+        );
+
+    const caregiverId =
+        document.getElementById(
+            "dashboard-caregiver-id"
+        );
 
 
-        const patientId =
-            document.getElementById(
-                "dashboard-patient-id"
-            );
+    if (patientName) {
+
+        patientName.textContent =
+            patient.name ??
+            patient.patientName ??
+            "-";
+
+    }
 
 
-        const patientAge =
-            document.getElementById(
-                "dashboard-patient-age"
-            );
+    if (patientId) {
+
+        patientId.textContent =
+            patient.patientID ??
+            patient.patientId ??
+            patient.id ??
+            patient.firestoreId ??
+            "-";
+
+    }
 
 
-        const caregiverId =
-            document.getElementById(
-                "dashboard-caregiver-id"
-            );
+    if (patientAge) {
+
+        patientAge.textContent =
+            patient.age ??
+            "-";
+
+    }
 
 
-        if (patientName) {
+    if (caregiverId) {
 
-            patientName.textContent =
-                patient.name ||
-                patient.patientName ||
-                "Unknown Patient";
-
-        }
-
-
-        if (patientId) {
-
-            patientId.textContent =
-                patient.id || "-";
-
-        }
-
-
-        if (patientAge) {
-
-            patientAge.textContent =
-                patient.age ?? "-";
-
-        }
-
-
-        if (caregiverId) {
-
-            caregiverId.textContent =
-                patient.caregiverID ||
-                patient.caregiverId ||
-                "-";
-
-        }
+        caregiverId.textContent =
+            patient.caregiverID ??
+            patient.caregiverId ??
+            patient.caregiver ??
+            "-";
 
     }
 
@@ -638,62 +597,58 @@ function updateDashboard() {
 
     if (medicine) {
 
-
-        const medicineName =
+        const name =
             document.getElementById(
                 "dashboard-medicine-name"
             );
 
-
-        const medicineStock =
+        const stock =
             document.getElementById(
                 "dashboard-medicine-stock"
             );
 
-
-        const medicineCompartment =
+        const compartment =
             document.getElementById(
                 "dashboard-medicine-compartment"
             );
 
-
-        const medicineExpiry =
+        const expiry =
             document.getElementById(
                 "dashboard-medicine-expiry"
             );
 
 
-        if (medicineName) {
+        if (name) {
 
-            medicineName.textContent =
-                medicine.name ||
-                "Medicine";
+            name.textContent =
+                medicine.name ??
+                "-";
 
         }
 
 
-        if (medicineStock) {
+        if (stock) {
 
-            medicineStock.textContent =
+            stock.textContent =
                 medicine.stock ??
                 "-";
 
         }
 
 
-        if (medicineCompartment) {
+        if (compartment) {
 
-            medicineCompartment.textContent =
-                medicine.compartment ||
+            compartment.textContent =
+                medicine.compartment ??
                 "-";
 
         }
 
 
-        if (medicineExpiry) {
+        if (expiry) {
 
-            medicineExpiry.textContent =
-                medicine.expiry ||
+            expiry.textContent =
+                medicine.expiry ??
                 "-";
 
         }
@@ -702,7 +657,7 @@ function updateDashboard() {
 
 
     // -----------------------------------------------------
-    // NEXT REMINDER
+    // REMINDER
     // -----------------------------------------------------
 
     const reminder =
@@ -711,66 +666,62 @@ function updateDashboard() {
 
     if (reminder) {
 
-
-        const reminderTime =
+        const time =
             document.getElementById(
                 "dashboard-reminder-time"
             );
 
-
-        const reminderName =
+        const name =
             document.getElementById(
                 "dashboard-reminder-name"
             );
 
-
-        const reminderDose =
+        const dose =
             document.getElementById(
                 "dashboard-reminder-dose"
             );
 
-
-        const reminderStatus =
+        const status =
             document.getElementById(
                 "dashboard-reminder-status"
             );
 
 
-        if (reminderTime) {
+        if (time) {
 
-            reminderTime.textContent =
-                reminder.time ||
-                reminder.reminderTime ||
+            time.textContent =
+                reminder.time ??
+                reminder.reminderTime ??
                 "-";
 
         }
 
 
-        if (reminderName) {
+        if (name) {
 
-            reminderName.textContent =
-                reminder.medicineName ||
-                reminder.medicine ||
-                "Medicine";
-
-        }
-
-
-        if (reminderDose) {
-
-            reminderDose.textContent =
-                reminder.dose ||
-                reminder.quantity ||
+            name.textContent =
+                reminder.medicineName ??
+                reminder.medicine ??
                 "-";
 
         }
 
 
-        if (reminderStatus) {
+        if (dose) {
 
-            reminderStatus.textContent =
+            dose.textContent =
+                reminder.dose ??
+                reminder.quantity ??
+                "-";
+
+        }
+
+
+        if (status) {
+
+            status.textContent =
                 String(
-                    reminder.status ||
+                    reminder.status ??
                     "PENDING"
                 ).toUpperCase();
 
@@ -783,78 +734,74 @@ function updateDashboard() {
     // LAST DOSE
     // -----------------------------------------------------
 
-    const dose =
+    const lastDose =
         firebaseData.doseHistory[0];
 
 
-    if (dose) {
+    if (lastDose) {
 
-
-        const doseName =
+        const name =
             document.getElementById(
                 "dashboard-dose-name"
             );
 
-
-        const doseScheduled =
+        const scheduled =
             document.getElementById(
                 "dashboard-dose-scheduled"
             );
 
-
-        const doseActual =
+        const actual =
             document.getElementById(
                 "dashboard-dose-actual"
             );
 
-
-        const doseStatus =
+        const status =
             document.getElementById(
                 "dashboard-dose-status"
             );
 
 
-        if (doseName) {
+        if (name) {
 
-            doseName.textContent =
-                dose.medicineName ||
-                dose.medicine ||
-                "Medicine";
+            name.textContent =
+                lastDose.medicineName ??
+                lastDose.medicine ??
+                "-";
 
         }
 
 
-        if (doseScheduled) {
+        if (scheduled) {
 
-            doseScheduled.textContent =
+            scheduled.textContent =
                 "Scheduled: " +
                 (
-                    dose.scheduled ||
-                    dose.scheduledTime ||
+                    lastDose.scheduled ??
+                    lastDose.scheduledTime ??
                     "-"
                 );
 
         }
 
 
-        if (doseActual) {
+        if (actual) {
 
-            doseActual.textContent =
+            actual.textContent =
                 "Actual: " +
                 (
-                    dose.actual ||
-                    dose.actualTime ||
+                    lastDose.actual ??
+                    lastDose.actualTime ??
                     "-"
                 );
 
         }
 
 
-        if (doseStatus) {
+        if (status) {
 
-            doseStatus.textContent =
+            status.textContent =
                 String(
-                    dose.status ||
+                    lastDose.status ??
                     "TAKEN"
                 ).toUpperCase();
 
@@ -866,7 +813,7 @@ function updateDashboard() {
 
 
 // =========================================================
-// PATIENTS PAGE
+// ⭐ FIXED PATIENTS PAGE
 // =========================================================
 
 function updatePatientsPage() {
@@ -877,22 +824,40 @@ function updatePatientsPage() {
         );
 
 
-    if (!tbody) return;
+    if (!tbody) {
+
+        console.error(
+            "patients-table-body not found!"
+        );
+
+        return;
+
+    }
 
 
+    // IMPORTANT:
+    // Completely remove old table rows
     tbody.innerHTML = "";
 
 
+    // If Firestore has no patients
     if (
         firebaseData.patients.length === 0
     ) {
 
         tbody.innerHTML = `
+
             <tr>
+
                 <td colspan="4">
-                    No patients found.
+
+                    No patients found in
+                    Firestore.
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -900,37 +865,64 @@ function updatePatientsPage() {
     }
 
 
+    // =====================================================
+    // CREATE TABLE DIRECTLY FROM FIRESTORE DATA
+    // =====================================================
+
     firebaseData.patients.forEach(
-        function(patient) {
+        (patient) => {
+
 
             const row =
                 document.createElement("tr");
 
 
+            // Patient ID
+            const patientID =
+                patient.patientID ??
+                patient.patientId ??
+                patient.id ??
+                patient.firestoreId ??
+                "-";
+
+
+            // Patient Name
+            const patientName =
+                patient.name ??
+                patient.patientName ??
+                "-";
+
+
+            // Patient Age
+            const patientAge =
+                patient.age ??
+                "-";
+
+
+            // Caregiver ID
+            const caregiverID =
+                patient.caregiverID ??
+                patient.caregiverId ??
+                patient.caregiver ??
+                "-";
+
+
             row.innerHTML = `
 
                 <td>
-                    ${patient.id || "-"}
+                    ${escapeHTML(patientID)}
                 </td>
 
                 <td>
-                    ${
-                        patient.name ||
-                        patient.patientName ||
-                        "-"
-                    }
+                    ${escapeHTML(patientName)}
                 </td>
 
                 <td>
-                    ${patient.age ?? "-"}
+                    ${escapeHTML(patientAge)}
                 </td>
 
                 <td>
-                    ${
-                        patient.caregiverID ||
-                        patient.caregiverId ||
-                        "-"
-                    }
+                    ${escapeHTML(caregiverID)}
                 </td>
 
             `;
@@ -939,6 +931,12 @@ function updatePatientsPage() {
             tbody.appendChild(row);
 
         }
+    );
+
+
+    console.log(
+        "Patients page updated with:",
+        firebaseData.patients
     );
 
 }
@@ -967,11 +965,17 @@ function updateMedicinesPage() {
     ) {
 
         tbody.innerHTML = `
+
             <tr>
+
                 <td colspan="5">
+
                     No medicines found.
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -980,39 +984,50 @@ function updateMedicinesPage() {
 
 
     firebaseData.medicines.forEach(
-        function(medicine) {
+        (medicine) => {
 
             const row =
                 document.createElement("tr");
 
 
-            const stock =
-                medicine.stock !== undefined &&
-                medicine.stock !== null
-                    ? medicine.stock
-                    : "-";
-
-
             row.innerHTML = `
 
                 <td>
-                    ${medicine.id || "-"}
+                    ${escapeHTML(
+                        medicine.medicineID ??
+                        medicine.medicineId ??
+                        medicine.id ??
+                        medicine.firestoreId ??
+                        "-"
+                    )}
                 </td>
 
                 <td>
-                    ${medicine.name || "-"}
+                    ${escapeHTML(
+                        medicine.name ??
+                        "-"
+                    )}
                 </td>
 
                 <td>
-                    ${stock}
+                    ${escapeHTML(
+                        medicine.stock ??
+                        "-"
+                    )}
                 </td>
 
                 <td>
-                    ${medicine.expiry || "-"}
+                    ${escapeHTML(
+                        medicine.expiry ??
+                        "-"
+                    )}
                 </td>
 
                 <td>
-                    ${medicine.compartment || "-"}
+                    ${escapeHTML(
+                        medicine.compartment ??
+                        "-"
+                    )}
                 </td>
 
             `;
@@ -1049,13 +1064,21 @@ function updateRemindersPage() {
     ) {
 
         container.innerHTML = `
+
             <div class="empty-state">
+
                 <div>⏰</div>
-                <h3>No Reminders</h3>
+
+                <h3>
+                    No Reminders
+                </h3>
+
                 <p>
                     No medicine reminders found.
                 </p>
+
             </div>
+
         `;
 
         return;
@@ -1064,8 +1087,7 @@ function updateRemindersPage() {
 
 
     firebaseData.reminders.forEach(
-        function(reminder) {
-
+        (reminder) => {
 
             const item =
                 document.createElement("div");
@@ -1078,30 +1100,38 @@ function updateRemindersPage() {
             item.innerHTML = `
 
                 <div class="reminder-time">
+
                     ${
-                        reminder.time ||
-                        reminder.reminderTime ||
+                        reminder.time ??
+                        reminder.reminderTime ??
                         "-"
                     }
+
                 </div>
 
                 <div>
 
                     <h3>
+
                         ${
-                            reminder.medicineName ||
-                            reminder.medicine ||
+                            reminder.medicineName ??
+                            reminder.medicine ??
                             "Medicine"
+
                         }
+
                     </h3>
 
                     <p>
+
                         Dose:
+
                         ${
-                            reminder.dose ||
-                            reminder.quantity ||
+                            reminder.dose ??
+                            reminder.quantity ??
                             "-"
                         }
+
                     </p>
 
                 </div>
@@ -1110,7 +1140,7 @@ function updateRemindersPage() {
 
                     ${
                         String(
-                            reminder.status ||
+                            reminder.status ??
                             "PENDING"
                         ).toUpperCase()
                     }
@@ -1151,11 +1181,17 @@ function updateDoseHistoryPage() {
     ) {
 
         tbody.innerHTML = `
+
             <tr>
+
                 <td colspan="5">
+
                     No dose history found.
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -1164,53 +1200,64 @@ function updateDoseHistoryPage() {
 
 
     firebaseData.doseHistory.forEach(
-        function(dose) {
+        (dose) => {
 
             const row =
                 document.createElement("tr");
 
 
-            const status =
-                String(
-                    dose.status ||
-                    "TAKEN"
-                ).toUpperCase();
-
-
             row.innerHTML = `
 
                 <td>
+
                     ${
-                        dose.medicineName ||
-                        dose.medicine ||
+                        dose.medicineName ??
+                        dose.medicine ??
                         "-"
                     }
+
                 </td>
 
                 <td>
-                    ${dose.date || "-"}
+
+                    ${
+                        dose.date ??
+                        "-"
+                    }
+
                 </td>
 
                 <td>
+
                     ${
-                        dose.scheduled ||
-                        dose.scheduledTime ||
+                        dose.scheduled ??
+                        dose.scheduledTime ??
                         "-"
                     }
+
                 </td>
 
                 <td>
+
                     ${
-                        dose.actual ||
-                        dose.actualTime ||
+                        dose.actual ??
+                        dose.actualTime ??
                         "-"
                     }
+
                 </td>
 
                 <td>
 
                     <span class="status taken">
-                        ${status}
+
+                        ${
+                            String(
+                                dose.status ??
+                                "TAKEN"
+                            ).toUpperCase()
+                        }
+
                     </span>
 
                 </td>
@@ -1254,8 +1301,7 @@ function updateAlertsPage() {
             </h3>
 
             <p>
-                There are currently no
-                medicine alerts.
+                There are currently no alerts.
             </p>
 
         `;
@@ -1269,15 +1315,20 @@ function updateAlertsPage() {
             <div>⚠️</div>
 
             <h3>
+
                 ${
                     firebaseData.sosEvents.length
                 }
+
                 Event(s) Found
+
             </h3>
 
             <p>
+
                 Please check the SOS Events
                 section.
+
             </p>
 
         `;
@@ -1330,45 +1381,88 @@ function updateSOSPage() {
 
 
     firebaseData.sosEvents.forEach(
-        function(event) {
+        (event) => {
 
-
-            const eventBox =
+            const box =
                 document.createElement("div");
 
 
-            eventBox.className =
+            box.className =
                 "sos-event";
 
 
-            eventBox.innerHTML = `
+            box.innerHTML = `
 
                 <div>🚨</div>
 
                 <h3>
-                    SOS Event:
-                    ${event.id || "-"}
+                    SOS Event
                 </h3>
 
                 <p>
+                    Event ID:
+                    ${
+                        event.id ??
+                        event.firestoreId ??
+                        "-"
+                    }
+                </p>
+
+                <p>
                     Patient:
-                    ${event.patientId || "-"}
+                    ${
+                        event.patientId ??
+                        event.patientID ??
+                        "-"
+                    }
                 </p>
 
                 <p>
                     Status:
-                    ${event.status || "-"}
+                    ${
+                        event.status ??
+                        "-"
+                    }
                 </p>
 
             `;
 
 
-            container.appendChild(
-                eventBox
-            );
+            container.appendChild(box);
 
         }
     );
+
+}
+
+
+// =========================================================
+// HTML SAFETY
+// =========================================================
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
 
 }
 
@@ -1404,12 +1498,12 @@ window.logout = logout;
 
 
 // =========================================================
-// INITIAL UI
+// INITIAL PAGE
 // =========================================================
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    () => {
 
         showPage("dashboard");
 
