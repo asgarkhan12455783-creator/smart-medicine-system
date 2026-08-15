@@ -1,443 +1,1035 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Smart Medicine System</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
 
-        <div class="logo-area">
-            <img src="logo.png" alt="Logo">
-            <div>
-                <h2>Smart Medicine</h2>
-                <p>System</p>
-            </div>
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="logo-area">
+
+        <img
+            src="logo.png"
+            alt="Smart Medicine Logo"
+        >
+
+        <div>
+
+            <h2>Smart Medicine</h2>
+
+            <p>System</p>
+
         </div>
 
-        <nav>
-            <button class="nav-item active" onclick="showPage('dashboard')">
-                🏠 Dashboard
-            </button>
-
-            <button class="nav-item" onclick="showPage('patients')">
-                👤 Patients
-            </button>
-
-            <button class="nav-item" onclick="showPage('medicines')">
-                💊 Medicines
-            </button>
-
-            <button class="nav-item" onclick="showPage('reminders')">
-                ⏰ Reminders
-            </button>
-
-            <button class="nav-item" onclick="showPage('history')">
-                📋 Dose History
-            </button>
-
-            <button class="nav-item" onclick="showPage('alerts')">
-                ⚠️ Alerts
-            </button>
-
-            <button class="nav-item" onclick="showPage('sos')">
-                🚨 SOS
-            </button>
-        </nav>
-
-    </aside>
+    </div>
 
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
+    <nav>
 
-        <!-- TOP BAR -->
-        <header class="topbar">
 
-            <div>
-                <h1 id="page-title">Dashboard</h1>
-                <p>Smart Medicine Management System</p>
+        <button
+            class="nav-item active"
+            onclick="showPage('dashboard')"
+        >
+            🏠 Dashboard
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('patients')"
+        >
+            👤 Patients
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('caregiver')"
+        >
+            👨‍⚕️ Caregiver
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('medicines')"
+        >
+            💊 Medicines
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('reminders')"
+        >
+            ⏰ Reminders
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('history')"
+        >
+            📋 Dose History
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('alerts')"
+        >
+            ⚠️ Alerts
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('sos')"
+        >
+            🚨 SOS
+        </button>
+
+
+        <button
+            class="nav-item logout-button"
+            onclick="logout()"
+        >
+            🚪 Logout
+        </button>
+
+
+    </nav>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="main-content">
+
+
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+<header class="topbar">
+
+    <div>
+
+        <h1 id="page-title">
+            Dashboard
+        </h1>
+
+        <p>
+            Smart Medicine Management System
+        </p>
+
+    </div>
+
+
+    <div class="user-area">
+
+        <div class="user-icon">
+            👤
+        </div>
+
+
+        <div>
+
+            <strong id="top-caregiver-name">
+                Loading...
+            </strong>
+
+            <small id="top-caregiver-email">
+                Loading...
+            </small>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section
+    id="dashboard"
+    class="page active-page"
+>
+
+
+    <div class="welcome">
+
+        <h2>
+            Welcome to Smart Medicine System
+        </h2>
+
+        <p>
+            Monitor your patient's medicines,
+            reminders and dose history.
+        </p>
+
+    </div>
+
+
+
+    <!-- STAT CARDS -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👤
             </div>
 
-            <div class="user-area">
-                <div class="user-icon">👤</div>
+            <div>
+
+                <p>
+                    Patients
+                </p>
+
+                <h2 id="patients-count">
+                    0
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💊
+            </div>
+
+            <div>
+
+                <p>
+                    Medicines
+                </p>
+
+                <h2 id="medicines-count">
+                    0
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⏰
+            </div>
+
+            <div>
+
+                <p>
+                    Today's Reminders
+                </p>
+
+                <h2 id="reminders-count">
+                    0
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⚠️
+            </div>
+
+            <div>
+
+                <p>
+                    Alerts
+                </p>
+
+                <h2 id="alerts-count">
+                    0
+                </h2>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- PATIENT + MEDICINE -->
+
+    <div class="content-grid">
+
+
+        <!-- PATIENT -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    👤 Patient Information
+                </h2>
+
+            </div>
+
+
+            <div class="patient-info">
+
+
+                <div class="profile-circle">
+                    👤
+                </div>
+
+
                 <div>
-                    <strong>Caregiver</strong>
-                    <small>Demo User</small>
+
+                    <h3 id="dashboard-patient-name">
+                        Loading...
+                    </h3>
+
+
+                    <p>
+                        Patient ID:
+                        <span id="dashboard-patient-id">
+                            -
+                        </span>
+                    </p>
+
+
+                    <p>
+                        Age:
+                        <span id="dashboard-patient-age">
+                            -
+                        </span>
+                    </p>
+
+
+                    <p>
+                        Caregiver ID:
+                        <span id="dashboard-caregiver-id">
+                            -
+                        </span>
+                    </p>
+
+
                 </div>
+
+
             </div>
 
-        </header>
 
-
-        <!-- DASHBOARD -->
-        <section id="dashboard" class="page active-page">
-
-            <div class="welcome">
-                <h2>Welcome to Smart Medicine System</h2>
-                <p>Monitor your patient's medicines, reminders and dose history.</p>
-            </div>
-
-<!-- STAT CARDS -->
-<div class="stats-grid">
-
-    <div class="stat-card">
-        <div class="stat-icon">👤</div>
-        <div>
-            <p>Patients</p>
-            <h2 id="patients-count">0</h2>
         </div>
+
+
+
+        <!-- MEDICINE -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    💊 Medicine Information
+                </h2>
+
+            </div>
+
+
+            <div class="medicine-info">
+
+
+                <h3 id="dashboard-medicine-name">
+                    Loading...
+                </h3>
+
+
+                <div class="medicine-row">
+
+                    <span>
+                        Stock
+                    </span>
+
+                    <strong id="dashboard-medicine-stock">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="medicine-row">
+
+                    <span>
+                        Compartment
+                    </span>
+
+                    <strong id="dashboard-medicine-compartment">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="medicine-row">
+
+                    <span>
+                        Expiry
+                    </span>
+
+                    <strong id="dashboard-medicine-expiry">
+                        -
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon">💊</div>
-        <div>
-            <p>Medicines</p>
-            <h2 id="medicines-count">0</h2>
+
+
+    <!-- REMINDER + DOSE -->
+
+    <div class="content-grid">
+
+
+        <!-- REMINDER -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    ⏰ Next Reminder
+                </h2>
+
+            </div>
+
+
+            <div class="reminder-box">
+
+
+                <div
+                    class="time"
+                    id="dashboard-reminder-time"
+                >
+                    -
+                </div>
+
+
+                <div>
+
+                    <h3 id="dashboard-reminder-name">
+                        Loading...
+                    </h3>
+
+                    <p id="dashboard-reminder-dose">
+                        -
+                    </p>
+
+                </div>
+
+
+                <span
+                    class="status pending"
+                    id="dashboard-reminder-status"
+                >
+                    PENDING
+                </span>
+
+
+            </div>
+
+
         </div>
+
+
+
+        <!-- LAST DOSE -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    📋 Last Dose
+                </h2>
+
+            </div>
+
+
+            <div class="dose-box">
+
+
+                <div>
+
+                    <h3 id="dashboard-dose-name">
+                        Loading...
+                    </h3>
+
+
+                    <p id="dashboard-dose-scheduled">
+                        Scheduled: -
+                    </p>
+
+
+                    <p id="dashboard-dose-actual">
+                        Actual: -
+                    </p>
+
+                </div>
+
+
+                <span
+                    class="status taken"
+                    id="dashboard-dose-status"
+                >
+                    TAKEN
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon">⏰</div>
-        <div>
-            <p>Today's Reminders</p>
-            <h2 id="reminders-count">0</h2>
+
+</section>
+
+
+
+<!-- =========================================================
+     PATIENTS PAGE
+========================================================= -->
+
+<section
+    id="patients"
+    class="page"
+>
+
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+                👤 Patient Information
+            </h2>
+
         </div>
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Patient ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Age
+                        </th>
+
+                        <th>
+                            Caregiver ID
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="patients-table-body">
+
+                    <tr>
+
+                        <td colspan="4">
+                            Loading patient...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon">⚠️</div>
-        <div>
-            <p>Alerts</p>
-            <h2 id="alerts-count">0</h2>
+
+</section>
+
+
+
+<!-- =========================================================
+     CAREGIVER PAGE
+========================================================= -->
+
+<section
+    id="caregiver"
+    class="page"
+>
+
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+                👨‍⚕️ Caregiver Information
+            </h2>
+
         </div>
+
+
+        <div class="patient-info">
+
+
+            <div class="profile-circle">
+                👨‍⚕️
+            </div>
+
+
+            <div>
+
+
+                <h3 id="caregiver-name">
+                    Loading...
+                </h3>
+
+
+                <p>
+
+                    Caregiver ID:
+
+                    <span id="caregiver-id">
+                        -
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    Email:
+
+                    <span id="caregiver-email">
+                        -
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    Assigned Patient:
+
+                    <span id="caregiver-patient-id">
+                        -
+                    </span>
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
     </div>
 
-</div>
 
-            <!-- PATIENT + MEDICINE -->
-            <div class="content-grid">
-
-                <div class="card">
-
-                    <div class="card-header">
-                        <h2>👤 Patient Information</h2>
-                    </div>
-
-                    <div class="patient-info">
-
-                        <div class="profile-circle">
-                            👤
-                        </div>
-
-                       <div>
-    <h3 id="dashboard-patient-name">Loading...</h3>
-
-    <p>
-        Age:
-        <span id="dashboard-patient-age">-</span>
-    </p>
-
-    <p>
-        Gender:
-        <span id="dashboard-patient-gender">-</span>
-    </p>
-
-    <p>
-        Blood Group:
-        <span id="dashboard-patient-blood">-</span>
-    </p>
-
-    <p>
-        Disease:
-        <span id="dashboard-patient-disease">-</span>
-    </p>
-
-    <p>
-        Caregiver:
-        <span id="dashboard-caregiver-name">-</span>
-    </p>
-
-    <p>
-        Mobile:
-        <span id="dashboard-caregiver-mobile">-</span>
-    </p>
-</div>
-                    </div>
-
-                </div>
+</section>
 
 
-                <div class="card">
 
-                    <div class="card-header">
-                        <h2>💊 Medicine Information</h2>
-                    </div>
+<!-- =========================================================
+     MEDICINES PAGE
+========================================================= -->
 
-                    <div class="medicine-info">
+<section
+    id="medicines"
+    class="page"
+>
 
-                        <h3 id="dashboard-medicine-name">Loading...</h3>
 
-<div class="medicine-row">
-    <span>Stock</span>
-    <strong id="dashboard-medicine-stock">-</strong>
-</div>
+    <div class="card">
 
-<div class="medicine-row">
-    <span>Compartment</span>
-    <strong id="dashboard-medicine-compartment">-</strong>
-</div>
 
-<div class="medicine-row">
-    <span>Expiry</span>
-    <strong id="dashboard-medicine-expiry">-</strong>
-</div>
+        <div class="card-header">
 
-                    </div>
+            <h2>
+                💊 Medicines
+            </h2>
 
-                </div>
+        </div>
 
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Medicine ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Stock
+                        </th>
+
+                        <th>
+                            Expiry
+                        </th>
+
+                        <th>
+                            Compartment
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="medicines-table-body">
+
+                    <tr>
+
+                        <td colspan="5">
+                            Loading medicines...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     REMINDERS PAGE
+========================================================= -->
+
+<section
+    id="reminders"
+    class="page"
+>
+
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+                ⏰ Reminders
+            </h2>
+
+        </div>
+
+
+        <div
+            class="reminder-list"
+            id="reminders-list"
+        >
+
+            <p>
+                Loading reminders...
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     DOSE HISTORY
+========================================================= -->
+
+<section
+    id="history"
+    class="page"
+>
+
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+                📋 Dose History
+            </h2>
+
+        </div>
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Medicine
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Scheduled
+                        </th>
+
+                        <th>
+                            Actual
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="history-table-body">
+
+                    <tr>
+
+                        <td colspan="5">
+                            Loading dose history...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     ALERTS
+========================================================= -->
+
+<section
+    id="alerts"
+    class="page"
+>
+
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+                ⚠️ Alerts
+            </h2>
+
+        </div>
+
+
+        <div
+            class="empty-state"
+            id="alerts-content"
+        >
+
+            <div>
+                ⏳
             </div>
 
+            <h3>
+                Loading Alerts...
+            </h3>
 
-            <!-- REMINDER + DOSE -->
-            <div class="content-grid">
+            <p>
+                Please wait.
+            </p>
 
-                <div class="card">
-
-                    <div class="card-header">
-                        <h2>⏰ Next Reminder</h2>
-                    </div>
-
-                    <div class="reminder-box">
-
-                        <div class="time" id="dashboard-reminder-time">
-    -
-</div>
-
-<div>
-    <h3 id="dashboard-reminder-name">Loading...</h3>
-    <p id="dashboard-reminder-dose">-</p>
-</div>
-
-<span class="status pending" id="dashboard-reminder-status">
-    PENDING
-</span>
-
-                    </div>
-
-                </div>
+        </div>
 
 
-                <div class="card">
+    </div>
 
-                    <div class="card-header">
-                        <h2>📋 Last Dose</h2>
-                    </div>
 
-                    <div class="dose-box">
+</section>
 
-                        <div>
-    <h3 id="dashboard-dose-name">Loading...</h3>
-    <p id="dashboard-dose-scheduled">Scheduled: -</p>
-    <p id="dashboard-dose-actual">Actual: -</p>
-</div>
 
-<span class="status taken" id="dashboard-dose-status">
-    TAKEN
-</span>
 
-                    </div>
+<!-- =========================================================
+     SOS
+========================================================= -->
 
-                </div>
+<section
+    id="sos"
+    class="page"
+>
 
+
+    <div class="card sos-card">
+
+
+        <div class="card-header">
+
+            <h2>
+                🚨 SOS Events
+            </h2>
+
+        </div>
+
+
+        <div
+            class="empty-state"
+            id="sos-content"
+        >
+
+            <div>
+                ⏳
             </div>
 
-        </section>
+            <h3>
+                Loading SOS Events...
+            </h3>
+
+            <p>
+                Please wait.
+            </p>
+
+        </div>
 
 
-        <!-- PATIENTS PAGE -->
-        <section id="patients" class="page">
-
-            <div class="card">
-
-                <div class="card-header">
-                    <h2>👤 Patients</h2>
-                </div>
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-                            <tr>
-                                <th>Patient ID</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Caregiver</th>
-                            </tr>
-                        </thead>
-
-                      <tbody id="patients-table-body">
-    <tr>
-        <td colspan="4">Loading patients...</td>
-    </tr>
-</tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
+    </div>
 
 
-        <!-- MEDICINES PAGE -->
-        <section id="medicines" class="page">
-
-            <div class="card">
-
-                <div class="card-header">
-                    <h2>💊 Medicines</h2>
-                </div>
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-                            <tr>
-                                <th>Medicine ID</th>
-                                <th>Name</th>
-                                <th>Stock</th>
-                                <th>Expiry</th>
-                                <th>Compartment</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="medicines-table-body">
-    <tr>
-        <td colspan="5">Loading medicines...</td>
-    </tr>
-</tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
+</section>
 
 
-        <!-- REMINDERS PAGE -->
-        <section id="reminders" class="page">
 
-            <div class="card">
-
-                <div class="card-header">
-                    <h2>⏰ Reminders</h2>
-                </div>
-
-               <div class="reminder-list" id="reminders-list">
-    <p>Loading reminders...</p>
-</div>
-
-            </div>
-
-        </section>
+</main>
 
 
-        <!-- DOSE HISTORY -->
-        <section id="history" class="page">
 
-            <div class="card">
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-                <div class="card-header">
-                    <h2>📋 Dose History</h2>
-                </div>
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Medicine</th>
-                                <th>Date</th>
-                                <th>Scheduled</th>
-                                <th>Actual</th>
-                                <th>Status</th>
-                            </tr>
-
-                        </thead>
-
-                       <tbody id="history-table-body">
-    <tr>
-        <td colspan="5">Loading dose history...</td>
-    </tr>
-</tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
+<script
+    type="module"
+    src="script.js"
+></script>
 
 
-        <!-- ALERTS -->
-        <section id="alerts" class="page">
-
-            <div class="card">
-
-                <div class="card-header">
-                    <h2>⚠️ Alerts</h2>
-                </div>
-
-               <div class="empty-state" id="alerts-content">
-    <div>⏳</div>
-    <h3>Loading Alerts...</h3>
-    <p>Please wait.</p>
-</div>
-            </div>
-
-        </section>
-
-
-        <!-- SOS -->
-        <section id="sos" class="page">
-
-            <div class="card sos-card">
-
-                <div class="card-header">
-                    <h2>🚨 SOS Events</h2>
-                </div>
-
-              <div class="empty-state" id="sos-content">
-    <div>⏳</div>
-    <h3>Loading SOS Events...</h3>
-    <p>Please wait.</p>
-</div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <script type="module" src="script.js"></script>
-    
 </body>
+
 </html>
