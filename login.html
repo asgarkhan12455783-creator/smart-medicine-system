@@ -1,166 +1,427 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - Smart Medicine System</title>
+```
+<title>Smart Medicine System</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        font-family: "Segoe UI", Arial, sans-serif;
+
+        background:
+            radial-gradient(circle at top left, #dff4ff 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #dbeafe 0%, transparent 35%),
+            linear-gradient(135deg, #f8fbff, #eaf5ff);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 30px 15px;
+    }
+
+    .page-container {
+        width: 100%;
+        max-width: 1050px;
+
+        display: grid;
+        grid-template-columns: 0.9fr 1.4fr;
+
+        background: rgba(255,255,255,0.95);
+
+        border-radius: 25px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 25px 70px rgba(15, 71, 110, 0.15);
+    }
+
+
+    /* LEFT SIDE */
+
+    .welcome-section {
+        background:
+            linear-gradient(145deg, #0d5c91, #1687b8);
+
+        color: white;
+
+        padding: 55px 40px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        position: relative;
+        overflow: hidden;
+    }
+
+    .welcome-section::before {
+        content: "";
+
+        position: absolute;
+
+        width: 280px;
+        height: 280px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.08);
+
+        top: -100px;
+        right: -100px;
+    }
+
+    .welcome-section::after {
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.06);
+
+        bottom: -90px;
+        left: -90px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+
+        object-fit: contain;
+
+        margin-bottom: 25px;
+
+        background: white;
+
+        padding: 10px;
+
+        border-radius: 22px;
+    }
+
+    .welcome-section h1 {
+        margin: 0;
+
+        font-size: 38px;
+
+        line-height: 1.15;
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .welcome-section h1 span {
+        color: #b9edff;
+    }
+
+    .welcome-section p {
+        font-size: 16px;
+
+        line-height: 1.7;
+
+        color: #e5f8ff;
+
+        margin-top: 18px;
+
+        max-width: 420px;
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .feature {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-top: 25px;
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .feature-icon {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 12px;
+
+        background: rgba(255,255,255,0.15);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 19px;
+    }
+
+    .feature span {
+        font-size: 14px;
+
+        color: #e8f9ff;
+    }
+
+
+    /* RIGHT SIDE */
+
+    .form-section {
+        padding: 45px;
+
+        background: white;
+    }
+
+    .form-header {
+        margin-bottom: 28px;
+    }
+
+    .form-header h2 {
+        margin: 0;
+
+        color: #123f6d;
+
+        font-size: 28px;
+    }
+
+    .form-header p {
+        margin: 8px 0 0;
+
+        color: #64748b;
+
+        font-size: 14px;
+    }
+
+
+    .form-grid {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 18px;
+    }
+
+    .form-group {
+        display: flex;
+
+        flex-direction: column;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        font-size: 13px;
+
+        font-weight: 600;
+
+        color: #334155;
+
+        margin-bottom: 7px;
+    }
+
+    input,
+    select {
+        width: 100%;
+
+        height: 45px;
+
+        padding: 0 13px;
+
+        border: 1px solid #d7e1ea;
+
+        border-radius: 10px;
+
+        background: #f8fafc;
+
+        color: #1e293b;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+
+        border-color: #1592c2;
+
+        background: white;
+
+        box-shadow:
+            0 0 0 3px rgba(21,146,194,0.10);
+    }
+
+    .login-button {
+        width: 100%;
+
+        height: 48px;
+
+        margin-top: 25px;
+
+        border: none;
+
+        border-radius: 11px;
+
+        background:
+            linear-gradient(135deg, #0d6fa5, #1598c5);
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 8px 20px rgba(13,111,165,0.22);
+
+        transition: 0.2s;
+    }
+
+    .login-button:hover {
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 10px 25px rgba(13,111,165,0.30);
+    }
+
+    .login-button:disabled {
+        opacity: 0.7;
+
+        cursor: not-allowed;
+
+        transform: none;
+    }
+
+    .message {
+        margin-top: 15px;
+
+        text-align: center;
+
+        font-size: 14px;
+
+        font-weight: 500;
+    }
+
+    #errorMessage {
+        color: #dc2626;
+    }
+
+    #successMessage {
+        color: #16a34a;
+    }
+
+    .security-note {
+        margin-top: 18px;
+
+        text-align: center;
+
+        font-size: 12px;
+
+        color: #94a3b8;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+        .page-container {
+            grid-template-columns: 1fr;
         }
+
+        .welcome-section {
+            padding: 35px;
+
+            text-align: center;
+
+            align-items: center;
+        }
+
+        .welcome-section h1 {
+            font-size: 30px;
+        }
+
+        .welcome-section p {
+            max-width: 600px;
+        }
+
+        .feature {
+            text-align: left;
+
+            width: 100%;
+
+            max-width: 350px;
+        }
+
+        .form-section {
+            padding: 30px 25px;
+        }
+    }
+
+
+    @media (max-width: 520px) {
 
         body {
-            margin: 0;
-            min-height: 100vh;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            font-family: Arial, sans-serif;
-
-            background: #f1f5f9;
+            padding: 10px;
         }
 
-        .login-container {
-            width: 390px;
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
 
-            background: white;
+        .full-width {
+            grid-column: auto;
+        }
 
-            padding: 40px;
+        .welcome-section {
+            padding: 30px 22px;
+        }
 
-            border-radius: 16px;
-
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        .form-section {
+            padding: 25px 18px;
         }
 
         .logo {
-            display: block;
-
             width: 70px;
             height: 70px;
-
-            object-fit: contain;
-
-            margin: 0 auto 15px;
         }
+    }
 
-        h1 {
-            margin: 0;
-
-            text-align: center;
-
-            color: #123f6d;
-
-            font-size: 28px;
-        }
-
-        .subtitle {
-            text-align: center;
-
-            color: #64748b;
-
-            margin-top: 8px;
-
-            margin-bottom: 30px;
-        }
-
-        label {
-            display: block;
-
-            margin-bottom: 7px;
-
-            font-weight: 600;
-
-            color: #334155;
-        }
-
-        input {
-            width: 100%;
-
-            padding: 13px;
-
-            margin-bottom: 18px;
-
-            border: 1px solid #cbd5e1;
-
-            border-radius: 8px;
-
-            font-size: 15px;
-        }
-
-        input:focus {
-            outline: none;
-
-            border-color: #1d5d96;
-        }
-
-        button {
-            width: 100%;
-
-            padding: 13px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: #1d5d96;
-
-            color: white;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #164a78;
-        }
-
-        button:disabled {
-            background: #94a3b8;
-
-            cursor: not-allowed;
-        }
-
-        #errorMessage {
-            margin-top: 15px;
-
-            text-align: center;
-
-            color: #dc2626;
-
-            font-size: 14px;
-        }
-
-        #successMessage {
-            margin-top: 15px;
-
-            text-align: center;
-
-            color: #16a34a;
-
-            font-size: 14px;
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
 
+<div class="page-container">
 
-<div class="login-container">
+```
+<!-- LEFT WELCOME PANEL -->
 
+<section class="welcome-section">
 
     <img
         src="logo.png"
@@ -168,59 +429,344 @@
         class="logo"
     >
 
+    <h1>
+        Smart <span>Medicine</span>
+    </h1>
 
-    <h1>Smart Medicine</h1>
+    <p>
+        Intelligent medicine management designed to help
+        patients and caregivers manage medications,
+        reminders and health information with ease.
+    </p>
 
-    <div class="subtitle">
-        Caregiver Login
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            💊
+        </div>
+
+        <span>
+            Smart medication management
+        </span>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ⏰
+        </div>
+
+        <span>
+            Medicine reminders and dose tracking
+        </span>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            🛡️
+        </div>
+
+        <span>
+            Secure patient information
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<!-- FORM -->
+
+<section class="form-section">
+
+
+    <div class="form-header">
+
+        <h2>
+            Patient Registration
+        </h2>
+
+        <p>
+            Enter patient and caregiver information to continue.
+        </p>
+
     </div>
 
 
     <form id="loginForm">
 
 
-        <label for="email">
-            Email Address
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            required
-        >
+        <div class="form-grid">
 
 
-        <label for="password">
-            Password
-        </label>
+            <!-- PATIENT NAME -->
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-        >
+            <div class="form-group full-width">
+
+                <label for="patientName">
+                    Patient Name
+                </label>
+
+                <input
+                    type="text"
+                    id="patientName"
+                    placeholder="Enter patient name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- AGE -->
+
+            <div class="form-group">
+
+                <label for="age">
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="Enter age"
+                    min="1"
+                    max="120"
+                    required
+                >
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="form-group">
+
+                <label for="gender">
+                    Gender
+                </label>
+
+                <select id="gender" required>
+
+                    <option value="">
+                        Select gender
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BLOOD GROUP -->
+
+            <div class="form-group">
+
+                <label for="bloodGroup">
+                    Blood Group
+                </label>
+
+                <select id="bloodGroup" required>
+
+                    <option value="">
+                        Select blood group
+                    </option>
+
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- HEIGHT -->
+
+            <div class="form-group">
+
+                <label for="height">
+                    Height (cm)
+                </label>
+
+                <input
+                    type="number"
+                    id="height"
+                    placeholder="e.g. 170"
+                    min="1"
+                >
+
+            </div>
+
+
+            <!-- WEIGHT -->
+
+            <div class="form-group">
+
+                <label for="weight">
+                    Weight (kg)
+                </label>
+
+                <input
+                    type="number"
+                    id="weight"
+                    placeholder="e.g. 65"
+                    min="1"
+                >
+
+            </div>
+
+
+            <!-- DISEASE -->
+
+            <div class="form-group">
+
+                <label for="disease">
+                    Disease / Condition
+                </label>
+
+                <input
+                    type="text"
+                    id="disease"
+                    placeholder="Enter disease or condition"
+                >
+
+            </div>
+
+
+            <!-- CAREGIVER -->
+
+            <div class="form-group">
+
+                <label for="caregiverName">
+                    Caregiver Name
+                </label>
+
+                <input
+                    type="text"
+                    id="caregiverName"
+                    placeholder="Enter caregiver name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CAREGIVER MOBILE -->
+
+            <div class="form-group">
+
+                <label for="caregiverMobile">
+                    Caregiver Mobile
+                </label>
+
+                <input
+                    type="tel"
+                    id="caregiverMobile"
+                    placeholder="Enter mobile number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+        </div>
 
 
         <button
             type="submit"
             id="loginButton"
+            class="login-button"
         >
-            Login
+            Continue to Dashboard →
         </button>
 
 
     </form>
 
 
-    <div id="errorMessage"></div>
+    <div
+        id="errorMessage"
+        class="message"
+    ></div>
 
-    <div id="successMessage"></div>
 
+    <div
+        id="successMessage"
+        class="message"
+    ></div>
+
+
+    <div class="security-note">
+        🔒 Your information is securely managed.
+    </div>
+
+
+</section>
+```
 
 </div>
-
 
 <script type="module">
 
@@ -244,89 +790,165 @@
         document.getElementById("successMessage");
 
 
-    loginForm.addEventListener("submit", async function(event) {
+    loginForm.addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
-
-
-        const email =
-            document.getElementById("email").value.trim();
-
-        const password =
-            document.getElementById("password").value;
+            event.preventDefault();
 
 
-        errorMessage.textContent = "";
+            const email =
+                document.getElementById("email")
+                .value
+                .trim();
 
-        successMessage.textContent = "";
-
-
-        loginButton.disabled = true;
-
-        loginButton.textContent = "Logging in...";
-
-
-        try {
-
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+            const password =
+                document.getElementById("password")
+                .value;
 
 
-            successMessage.textContent =
-                "Login successful!";
+            errorMessage.textContent = "";
+
+            successMessage.textContent = "";
 
 
-            setTimeout(function() {
+            loginButton.disabled = true;
 
-                window.location.href = "index.html";
-
-            }, 500);
-
-
-        } catch (error) {
-
-            console.error("Login error:", error);
+            loginButton.textContent =
+                "Signing in...";
 
 
-            if (
-                error.code === "auth/invalid-credential"
-            ) {
+            try {
 
-                errorMessage.textContent =
-                    "Incorrect email or password.";
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+                /*
+                 * Store the patient information for
+                 * the current browser session.
+                 *
+                 * This allows the dashboard and
+                 * inner pages to use the information
+                 * entered here.
+                 */
+
+                const patientData = {
+
+                    patientName:
+                        document.getElementById("patientName").value.trim(),
+
+                    age:
+                        document.getElementById("age").value.trim(),
+
+                    gender:
+                        document.getElementById("gender").value,
+
+                    bloodGroup:
+                        document.getElementById("bloodGroup").value,
+
+                    height:
+                        document.getElementById("height").value.trim(),
+
+                    weight:
+                        document.getElementById("weight").value.trim(),
+
+                    disease:
+                        document.getElementById("disease").value.trim(),
+
+                    caregiverName:
+                        document.getElementById("caregiverName").value.trim(),
+
+                    caregiverMobile:
+                        document.getElementById("caregiverMobile").value.trim(),
+
+                    email: email
+
+                };
+
+
+                sessionStorage.setItem(
+                    "patientData",
+                    JSON.stringify(patientData)
+                );
+
+
+                successMessage.textContent =
+                    "Login successful! Redirecting...";
+
+
+                setTimeout(function() {
+
+                    window.location.href =
+                        "index.html";
+
+                }, 700);
+
 
             }
 
-            else if (
-                error.code === "auth/invalid-email"
-            ) {
+            catch (error) {
 
-                errorMessage.textContent =
-                    "Please enter a valid email address.";
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+
+                if (
+                    error.code ===
+                    "auth/invalid-credential"
+                ) {
+
+                    errorMessage.textContent =
+                        "Incorrect email or password.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    errorMessage.textContent =
+                        "Please enter a valid email address.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/too-many-requests"
+                ) {
+
+                    errorMessage.textContent =
+                        "Too many attempts. Please try again later.";
+
+                }
+
+                else {
+
+                    errorMessage.textContent =
+                        "Login failed. Please try again.";
+
+                }
+
+
+                loginButton.disabled = false;
+
+                loginButton.textContent =
+                    "Continue to Dashboard →";
 
             }
-
-            else {
-
-                errorMessage.textContent =
-                    "Login failed. Please try again.";
-
-            }
-
-
-            loginButton.disabled = false;
-
-            loginButton.textContent = "Login";
 
         }
-
-    });
+    );
 
 </script>
-
 
 </body>
 
